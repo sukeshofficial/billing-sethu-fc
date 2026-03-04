@@ -293,9 +293,11 @@ Possible enhancements include:
 
 ---
 
-# Author
+# Authors
 
 **N. Vera Adithya**
+**D.Sukesh**
+**J.N.Prithiviraaj**
 B.E Computer Science and Engineering
 Sethu Institute of Technology
 
