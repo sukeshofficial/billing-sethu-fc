@@ -293,11 +293,14 @@ Possible enhancements include:
 
 ---
 
-# Authors
+## Authors
 
-**N. Vera Adithya**
-**D.Sukesh**
-**J.N.Prithiviraaj**
+| Name | Role |
+|-----|-----|
+| N. Vera Adithya | Lead Developer |
+| D. Sukesh | Co-Developer |
+| J. N. Prithiviraaj | Co-Developer |
+
 B.E Computer Science and Engineering
 Sethu Institute of Technology
 
