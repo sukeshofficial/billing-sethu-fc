@@ -12,382 +12,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Data structures and Templates
 const templates = {
-  invoice: `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; padding: 0 5px;">
-      
-            <div style="text-align: right; font-size: 15px; line-height: 1.6; color: #0c1a3a;">
-                <div><strong>GSTIN:</strong> 33CFHPA3509J1ZS</div>
-            </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;">
-            <div style="font-weight: bold; font-size: 13px; color: #0c1a3a; width: 33%;">Invoice No: <span contenteditable="true" id="invoice-no" style="min-width: 80px; display: inline-block; border-bottom: 1px solid #94a3b8;"></span></div>
-            <div style="width: 34%; text-align: center;">
-                <span style="background: #0c1a3a; color: white; padding: 6px 30px; border-radius: 4px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-transform: uppercase; border: 1px solid #0e7490; -webkit-print-color-adjust: exact; print-color-adjust: exact;">Tax Invoice</span>
-            </div>
-            <div style="width: 33%;"></div>
-        </div>
-
-        <table class="doc-table" style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1.5px solid #000;">
-            <thead>
-                <tr>
-                    <th style="width: 30%; background: #0c1a3a; color: white; border: 1.5px solid #000; padding: 6px; font-size: 11px;">CONSIGNOR NAME & ADDRESS</th>
-                    <th style="width: 30%; background: #0c1a3a; color: white; border: 1.5px solid #000; padding: 6px; font-size: 11px;">CONSIGNEE NAME & ADDRESS</th>
-                    <th style="width: 40%; background: #0c1a3a; color: white; border: 1.5px solid #000; padding: 6px; font-size: 11px;">DETAILS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Address Box Row -->
-                <tr>
-                    <td style="border: 1.5px solid #000; vertical-align: top; padding: 8px; height: 100px;">
-                        <div contenteditable="true" style="width: 100%; min-height: 84px; outline: none; font-size: 11px;"></div>
-                    </td>
-                    <td style="border: 1.5px solid #000; vertical-align: top; padding: 8px; height: 100px;">
-                        <div contenteditable="true" style="width: 100%; min-height: 84px; outline: none; font-size: 11px;"></div>
-                    </td>
-                    <td rowspan="8" style="border: 1.5px solid #000; padding: 0; vertical-align: top;">
-                        <table style="width: 100%; height: 100%; border-collapse: collapse; font-size: 10.5px;">
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px; width: 68%;">Freight Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right; width: 32%;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">Packing Materials and Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">Loading Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">Unloading Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">Rearranging Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">Warehousing / Car Transportation</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #000;">
-                                <td style="padding: 4px 8px;">A/C Assembling / De-assembling Charges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <tr style="border-bottom: 1.5px solid #000;">
-                                <td style="padding: 4px 8px;">Surcharges</td>
-                                <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;"><span contenteditable="true" class="charge-amount" oninput="calculateTotal()" style="display: block; width: 100%; min-height: 15px;"></span></td>
-                            </tr>
-                            <!-- Summary Alignment Rows -->
-                            <tr style="height: 30px; border-bottom: 1px solid #000;">
-                                <td style="padding: 6px 8px; font-weight: bold; background: #ecfeff; color: #0e7490; text-align: right;">Sub-Total:</td>
-                                <td style="padding: 6px 8px; border-left: 1.5px solid #000; text-align: right; font-weight: bold;">₹ <span id="sub-total">0</span></td>
-                            </tr>
-                        <tr style="border-bottom:1px solid #000;">
-                            <td style="padding: 4px 8px;">CGST @ <span contenteditable="true" id="cgst-pct" oninput="calculateTotal()" style="min-width:24px; display:inline-block; border-bottom:1px dashed #94a3b8;">0</span> %</td>
-                            <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;">₹ <span id="cgst-amt">0</span></td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #000;">
-                            <td style="padding: 4px 8px;">SGST @ <span contenteditable="true" id="sgst-pct" oninput="calculateTotal()" style="min-width:24px; display:inline-block; border-bottom:1px dashed #94a3b8;">0</span> %</td>
-                            <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;">₹ <span id="sgst-amt">0</span></td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #000;">
-                            <td style="padding: 4px 8px;">IGST @ <span contenteditable="true" id="igst-pct" oninput="calculateTotal()" style="min-width:24px; display:inline-block; border-bottom:1px dashed #94a3b8;">0</span> %</td>
-                            <td style="padding: 4px 8px; border-left: 1.5px solid #000; text-align: right;">₹ <span id="igst-amt">0</span></td>
-                        </tr>
-                            <tr style="height: 34px; border-bottom: 1px solid #000;">
-                                <td style="padding: 6px 8px; font-weight: bold; background: #0c1a3a; color: white; text-align: right; -webkit-print-color-adjust: exact; print-color-adjust: exact;">Grand Total:</td>
-                                <td style="padding: 6px 8px; border-left: 1.5px solid #000; text-align: right; background: #ecfeff; font-weight: bold; font-size: 13px; color: #0c1a3a; -webkit-print-color-adjust: exact; print-color-adjust: exact;">₹ <span id="grand-total">0</span></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="border: none; padding: 10px; font-size: 11px; vertical-align: top; height: 140px;">
-                                    <div style="font-weight: bold; color: #0c1a3a; margin-bottom: 4px;">For ARK PACKERS AND MOVERS</div>
-                                    <br><br><br><br>
-                                    <div style="text-align: right; font-weight: bold; letter-spacing: 0.5px;">Authorized Signatory</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <!-- Section Details Rows -->
-                <tr>
-                    <td style="border: 1.5px solid #000; border-right: none; padding: 5px 8px; font-size: 11px;"><strong>GSTIN:</strong> <span contenteditable="true" style="min-width: 140px; display: inline-block;"></span></td>
-                    </tr>
-                    <tr>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Mobile:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Mobile:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    </tr>
-                    <tr>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Booking Station:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Delivery Station:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    </tr>
-                    <tr>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Vehicle No:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Delivery Instruction:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    </tr>
-                    <tr>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Actual Weight (Kgs):</strong> <span contenteditable="true" style="min-width: 50px; display: inline-block;"></span></td>
-                    <td style="border: 1.5px solid #000; padding: 5px 8px; font-size: 11px;"><strong>Amount Charged:</strong> <span contenteditable="true" style="min-width: 100px; display: inline-block;"></span></td>
-                    <td style="border: 1.5px solid #000; background: #ecfeff; padding: 0;"></td>
-                </tr>
-                <!-- PARTICULARS Row -->
-                <tr>
-                    <th colspan="2" style="background: #0c1a3a; color: white; border: 1.5px solid #000; padding: 6px; font-size: px; height: 26px;">PARTICULARS</th>
-                </tr>
-                <tr>
-                    <td colspan="2" style="border: 1.5px solid #000; vertical-align: top; padding: 8px; height: 180px;">
-                        <div contenteditable="true" style="width: 100%; min-height: 160px; outline: none; font-size: 25px;font-weight: bold; line-height: 1.6;"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Summary Footer -->
-        <div style="margin-top: 15px; font-size: 14px; padding-bottom: 4px; border-bottom: 1.5px solid #0c1a3a; display: flex; justify-content: space-between;">
-            <div><strong>Received Amount in words:</strong> <span id="grand-total-words" style="text-transform: capitalize; padding-left: 8px; font-weight: 500;">Zero Rupees Only</span></div>
-            <div style="font-weight: bold;">.</div>
-        </div>
-    `,
-  quotation: `
-        <div class="doc-title">Quotation</div>
-
-        <!-- Client Info Grid -->
-        <table class="client-info-table" style="margin-bottom: 12px;">
-            <tr>
-                <td class="label-cell" style="width:100px; vertical-align:top; padding:8px 10px;">Bill To</td>
-                <td colspan="3" style="padding:8px 10px; vertical-align:top;">
-                    <div contenteditable="true" style="width:100%; min-height:64px;"></div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-cell" style="padding:6px 10px;">Quotation No.</td>
-                <td style="padding:6px 10px; width:200px;"><span contenteditable="true" id="quotation-no" style="font-weight:600; color:var(--brand-dark); min-width: 80px; display: inline-block; border-bottom: 1px solid #94a3b8;"></span></td>
-                <td class="label-cell" style="padding:6px 10px; width:90px;">Date</td>
-                <td style="padding:6px 10px;"><span contenteditable="true" class="date-field" style="min-width:100px;"></span></td>
-            </tr>
-            <tr>
-                <td class="label-cell" style="padding:6px 10px;">Contact No.</td>
-                <td style="padding:6px 10px;"><span contenteditable="true" style="min-width:140px;"></span></td>
-                <td class="label-cell" style="padding:6px 10px;">Email</td>
-                <td style="padding:6px 10px;"><span contenteditable="true" style="min-width:140px;"></span></td>
-            </tr>
-        </table>
-
-        <!-- Intro -->
-        <div class="intro-text">
-            Dear Sir/Madam,
-            Thanks for Choosing ARK Packers and Movers for Servicing on your need! We are delighted to Provide our Quote for shifting your Household articles/Office equipments from&nbsp;<span contenteditable="true" style="min-width:140px;"></span>&nbsp;to&nbsp;<span contenteditable="true" style="min-width:140px;"></span>.
-        </div>
-
-        <!-- Charge Table -->
-        <table class="charge-table">
-            <thead>
-                <tr>
-                    <th style="width:70%; text-align:left; padding:8px 12px;">PARTICULARS</th>
-                    <th style="width:30%; text-align:right; padding:8px 12px;">Amount (₹)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Transportation Charges</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Packing Materials and Charges</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Loading (Floor: <span contenteditable="true" style="min-width:30px;"></span>)</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Unloading (Floor: <span contenteditable="true" style="min-width:30px;"></span>)</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Rearranging</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Warehousing/ Car Transportation</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>A/C Assembling/De-assembling Charges</td>
-                    <td style="text-align:right;">
-                        <span contenteditable="true" class="charge-amount" oninput="calculateTotal()"></span>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr style="background: rgba(0,0,0,0.02);">
-                    <td style="text-align:right; padding:8px 12px; font-weight:600;">Sub-Total</td>
-                    <td style="text-align:right; padding:8px 12px; font-weight:600;">₹ <span id="qt-subtotal">0</span></td>
-                </tr>
-                <tr>
-                    <td style="padding:8px 12px;">GST @ <span contenteditable="true" id="qt-gst-pct" oninput="calculateTotal()" style="min-width:28px; display:inline-block; border-bottom:1px dashed #94a3b8;"></span> %</td>
-                    <td style="text-align:right; padding:8px 12px;">₹ <span id="qt-gst-amt">0</span></td>
-                </tr>
-                <tr class="total-row">
-                    <td style="text-align:right; padding:8px 12px; letter-spacing:1px; background: var(--brand-dark); color: white;">Grand Total</td>
-                    <td style="text-align:right; padding:8px 12px; font-size:14px; background: var(--brand-dark); color: white;">₹ <span id="grand-total">0</span></td>
-                </tr>
-                <tr class="words-row">
-                    <td colspan="2" style="padding:7px 12px; border-top: 1px solid var(--border-color);">
-                        <strong>In Words:</strong>&nbsp;<span id="grand-total-words" style="text-transform:capitalize;">Zero Rupees Only</span>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <!-- Signature Row -->
-        <table class="sign-table">
-            <tr>
-                <td style="width:50%; vertical-align:top; padding-top:8px; font-size:12px; line-height:2;">
-                    Date:&nbsp;<span contenteditable="true" class="date-field" style="min-width:90px;"></span><br>
-                    Place:&nbsp;<span contenteditable="true" style="min-width:100px;"></span>
-                </td>
-                <td style="width:50%; text-align:center; padding-top:8px; font-size:12px;">
-                    <div style="margin-top:26px; border-top:1px solid var(--border-strong); padding-top:6px;">
-                        For ARK PACKERS AND MOVERS<br>
-                        <span style="font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Authorized Signatory</span>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <!-- Terms -->
-        <div class="terms-conditions">
-            <strong>Terms &amp; Conditions:</strong><br>
-            1. <strong>GST will be Charged Extra.</strong>&nbsp; 2. Transit Insurance will be provided by the company on customer demand; if arranged by the customer the company will not be liable for any coverage on damages.&nbsp; 3. In case any physical damage is not noted on the equipment there will not be any coverage for electrical/mechanical defects.&nbsp; 4. Electrical/Electronic fittings, carpentry works done only on customer demand with extra charges.&nbsp; 5. Advance amount should be paid on confirmation of order; 80% of the payment should be provided before transportation and 20% will be collected after delivery.&nbsp; 6. Quotation is valid for only 30 days from date of issue.&nbsp; 7. Charges may vary in case of fuel price hike or transportation problems.&nbsp; 8. All goods will be moved only on <em>"AS IS WHERE IS"</em> basis.
-        </div>
-    `,
-
   receipt: `
-        <!-- Receipt Badge -->
-        <div style="text-align:center; margin: 10px 0 22px; color: #241683ff">
-            <span class="receipt-badge">RECEIPT</span>
+        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 10px 0 25px; text-decoration: underline; color: #000; font-family: sans-serif; letter-spacing: 2px;">
+            RECEIPT
         </div>
-
-        <div class="receipt-body" style="font-size: 16px; line-height: 2.8; padding: 20px 40px; text-align: left; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(255,255,255,0.4); margin: 0 20px;">
-            No: <span contenteditable="true" id="receipt-no" style="min-width: 80px; font-weight: 600;"></span> &nbsp;
-            <br>
-            Received with thanks from <span contenteditable="true" style="min-width: 450px; display: inline-block; font-weight: 600;"></span><br>
-            the sum of Rupees <span contenteditable="true" style="min-width: 600px; display: inline-block; font-weight: 600;" id="amount-words"></span><br>
-            by Cash / UPI / Cheque / DD No. <span contenteditable="true" style="min-width: 200px; font-weight: 600;"></span> Dated <span contenteditable="true" class="date-field" style="min-width: 120px; font-weight: 600;"></span><br>
-            towards <span contenteditable="true" style="min-width: 250px; font-weight: 600;"></span> From <span contenteditable="true" style="min-width: 150px; font-weight: 600;"></span> to <span contenteditable="true" style="min-width: 150px; font-weight: 600;"></span>.
+        <div class="receipt-body" style="font-size: 18px; line-height: 2.8; padding: 20px 40px; text-align: left; margin: 0 20px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 25px;">
+                <div>No. <span contenteditable="true" id="receipt-no" style="min-width: 120px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
+                <div>Date <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                Received with thanks from <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                the sum of rupees <span contenteditable="true" id="amount-words" style="min-width: 500px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                being <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  by Cash / UPI / Cheque .
+            
+                </div>
+            
+            
         </div>
 
         <!-- Amount + Signature -->
-        <div class="sign-row" style="margin-top:36px; padding: 0 4px;">
-            <div class="receipt-amount-pill">
-                <span class="rupee-symbol">₹</span>
-                <span contenteditable="true" style="min-width:140px; border:none; outline:none;" id="receipt-amount" oninput="updateReceiptWords()"></span>
+        <div class="sign-row" style="margin-top: 40px; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end;">
+                Rs. <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px solid #000; margin-left: 10px; padding-left: 5px; outline: none; text-align: center;" id="receipt-amount" oninput="updateReceiptWords()"></span>
             </div>
-            <div style="text-align:center; font-size:12px;">
-                <div style="margin-top:48px; border-top:1px solid var(--border-strong); padding-top:6px; min-width:200px;">
-                    For ARK PACKERS AND MOVERS<br>
-                    <span style="font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Authorized Signatory</span>
-                </div>
+            <div style="text-align: right; font-size: 16px; font-weight: bold; line-height: 1.8;">
+                <div>Hony. Treasurer</div>
+                <div>Hony. Secretary</div>
             </div>
         </div>
     `,
 
-  itemlist: `
-        <!-- Doc No -->
-        <div class="doc-no-line">No:&nbsp;<span contenteditable="true" id="itemlist-no" style="font-weight:400; min-width:110px;"></span></div>
 
-        <!-- Title -->
-        <div class="doc-title" style="font-size:16px; letter-spacing:2px;">TO WHOMSOEVER IT MAY CONCERN</div>
-
-        <!-- Declaration -->
-        <div class="declaration-text">
-            Dear Sir/Madam;<br>
-            Herewith, we declare that all the Goods are Used Household/Office articles and the below described goods are shifted from&nbsp;<span contenteditable="true" style="min-width:190px;"></span>&nbsp;to&nbsp;<span contenteditable="true" style="min-width:190px;"></span>. The below mentioned Goods does not have any Commercial value and not for sale.
-        </div>
-
-        <!-- Consignor / Consignee -->
-        <table class="consignor-box" style="margin-top:12px;">
-            <tr>
-                <th>CONSIGNOR NAME AND ADDRESS</th>
-                <th>CONSIGNEE NAME AND ADDRESS</th>
-            </tr>
-            <tr>
-                <td><div class="consignor-name" contenteditable="true"></div></td>
-                <td><div class="consignee-name" contenteditable="true"></div></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 8px; border-top:1px solid var(--border-color);">
-                    <div style="margin-bottom:4px; line-height:1.7; font-size:12px;">Mobile:&nbsp;<span contenteditable="true" style="min-width:190px; border-bottom:1px dashed #94a3b8; display:inline-block;"></span></div>
-                    
-                </td>
-                <td style="padding:5px 8px; border-top:1px solid var(--border-color);">
-                    <div style="margin-bottom:4px; line-height:1.7; font-size:12px;">Mobile:&nbsp;<span contenteditable="true" style="min-width:190px; border-bottom:1px dashed #94a3b8; display:inline-block;"></span></div>
-                    
-                </td>
-            </tr>
-        </table>
-
-        <!-- Row Count Controls -->
-        <div class="no-print row-controls">
-            <span style="font-weight:600; margin-right:8px; font-size:12px;">Table Rows:</span>
-            <button onclick="changeRowsCount(20)">20 Rows</button>
-            <button onclick="changeRowsCount(40)">40 Rows</button>
-            <button onclick="changeRowsCount(60)">60 Rows</button>
-        </div>
-
-        <!-- Items Grid -->
-        <table class="doc-table item-table" style="margin-top:6px; table-layout:fixed;" id="items-grid">
-            <thead>
-                <tr style="height:26px;">
-                    <th style="width:8%;">SL NO</th>
-                    <th style="width:32%;">PARTICULARS</th>
-                    <th style="width:10%;">QTY</th>
-                    <th style="width:8%;">SL NO</th>
-                    <th style="width:32%;">PARTICULARS</th>
-                    <th style="width:10%;">QTY</th>
-                </tr>
-            </thead>
-            <tbody id="items-body">
-                <!-- Rows generated by JS -->
-            </tbody>
-        </table>
-
-        <!-- Footer / Signature strip -->
-        <table class="itemlist-footer">
-            <tr>
-                <td style="width:33%; border-right:1px solid var(--border-color);">
-                    Date:&nbsp;<span contenteditable="true" class="date-field" style="min-width:90px;"></span><br>
-                    Place:&nbsp;<span contenteditable="true" style="min-width:95px;"></span><br>
-                    Truck No:&nbsp;<span contenteditable="true" style="min-width:90px;"></span><br>
-                    Driver Name:&nbsp;<span contenteditable="true" style="min-width:80px;"></span><br>
-                    Driver Mobile:&nbsp;<span contenteditable="true" style="min-width:80px;"></span>
-                </td>
-                <td style="width:33%; text-align:center; border-right:1px solid var(--border-color); vertical-align:bottom;">
-                    <div style="margin-top:44px; border-top:1px solid var(--border-strong); padding-top:6px; font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Consignor Signature</div>
-                </td>
-                <td style="width:34%; text-align:center; vertical-align:bottom;">
-                    <div style="margin-top:44px; border-top:1px solid var(--border-strong); padding-top:6px; font-size:12px;">
-                        For ARK PACKERS &amp; MOVERS<br>
-                        <span style="font-size:10px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Authorized Signatory</span>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    `,
 };
 
 let currentTemplate = "quotation";
@@ -505,10 +168,8 @@ function switchTemplate(type) {
       // Old saved HTML lacks the ID — clear stale data and reload fresh
       localStorage.removeItem("ark_packers_data_receipt");
       container.innerHTML = templates["receipt"];
-      applyTodayDate();
       recNoEl = document.getElementById("receipt-no");
     }
-    if (recNoEl) recNoEl.innerText = sessionInvoiceNo;
   } else if (type === "itemlist") {
     let itemNoEl = document.getElementById("itemlist-no");
     if (!itemNoEl) {
@@ -577,8 +238,8 @@ function resetForm() {
   if (
     confirm(
       "Are you sure you want to clear all entered data for this " +
-        currentTemplate +
-        "?",
+      currentTemplate +
+      "?",
     )
   ) {
     localStorage.removeItem("ark_packers_data_" + currentTemplate);

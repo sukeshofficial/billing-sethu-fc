@@ -4,44 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARK PACKERS AND MOVERS - Document Generator</title>
+    <title>SETHU FOOTBALL CLUB</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="controls no-print">
-        <h1>ARK <span>PACKERS & MOVERS</span> — OFFLINE TOOLS</h1>
+        <h1>SETHU FOOTBALL CLUB</h1>
         <div class="nav-buttons">
-            <button onclick="switchTemplate('quotation')"> Quotation</button>
-            <button onclick="switchTemplate('invoice')">Tax Invoice</button>
-            <button onclick="switchTemplate('itemlist')"> Item List</button>
             <button onclick="switchTemplate('receipt')"> Receipt</button>
             <button class="print-btn" onclick="printDocument()"> Print / Save PDF</button>
             <button class="reset-btn" onclick="resetForm()"> Reset</button>
-            <button class="export-btn" onclick="exportData()"> Export Backup</button>
-            <button class="import-btn" onclick="triggerImport()"> Import Backup</button>
-            <button onclick="toggleDarkMode()"> Dark Mode</button>
         </div>
     </div>
 
     <div class="page-container" id="document-container">
         <div class="border-box">
             <!-- Header (Common to all docs) -->
-            <table class="header-table">
+            <table class="header-table" style="width: 100%; ">
                 <tr>
-                    <td class="logo-cell">
-                        <img src="assets/ARK Packers And Movers Wordmark Logo 2.png" alt="ARK LOGO" id="company-logo">
+                    <td class="logo-cell" style="text-align: left; width: 15%;">
+                        <img src="tamilnadu_logo.jpg" alt="Tamil Nadu Logo" style="margin-top: 6px; max-height: 75px; border-radius: 50%; margin-left: 15px;">
                     </td>
-                    <td class="company-details-cell">
-                        <div class="company-name"> ARK PACKERS AND MOVERS </div>
-                        <div class="company-address">60/12 Nanbargal Street, S.S.Colony, Madurai - 625016</div>
-                        <div class="company-contact">
-                            📞 +91 9843412811 &nbsp;|&nbsp; ✉️ arkpackersmovers@gmail.com
-                        </div>
+                    <td class="company-details-cell" style="text-align: center; width: 70%;">
+                        <div class="company-name" style="font-size: 18px; font-weight: bold; color: #ffffff; font-family: sans-serif; letter-spacing: 0.5px;">MADURAI DISTRICT FOOT-BALL ASSOCIATION</div>
+                        <div style="font-size: 18px; font-weight: bold; color: #ffffff; font-family: sans-serif; margin-top: 5px;">MADURAI</div>
+                        <div class="company-address" style="font-size: 12px; color: #ffffff; margin-top: 5px;">Registered under societies Act. No.12/1983. Affiliated with T.F.A CHENNAI</div>
+                    </td>
+                    <td class="logo-cell" style="text-align: right; width: 15%;">
+                        <img src="football_logo.jpg" alt="Football Logo" style="max-height: 75px; border-radius: 50%; margin-right: 15px; margin-top: 6px;">
                     </td>
                 </tr>
             </table>
-            <div class="header-accent-bar"></div>
+            <div class="header-accent-bar" style="background: #000; height: 1.5px; margin-bottom: 20px;"></div>
 
             <!-- Dynamic Template Content Goes Here -->
             <div id="template-content" class="template-section">
