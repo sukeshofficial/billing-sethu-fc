@@ -219,7 +219,7 @@ body.dark-mode .controls h1 {
 
 /* ── A4 Page Setup ─────────────────────────────────────────── */
 @page {
-  size: portrait;
+  size: 148mm 210mm;
   margin: 8mm;
 }
 
@@ -242,8 +242,8 @@ body.landscape-print {
 }
 
 .page-container {
-  width: 210mm;
-  min-height: 297mm;
+  width: 148mm;
+  min-height: 210mm;
   margin: 0 auto;
   background: var(--page-bg);
   box-shadow: 0 8px 32px rgba(15, 42, 94, 0.15);
@@ -261,7 +261,7 @@ body.landscape-print {
 .border-box {
   border: 1.5px solid var(--border-strong);
   margin: 4mm;
-  min-height: 270mm;
+  min-height: 185mm;
   display: flex;
   flex-direction: column;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.02);
@@ -787,6 +787,7 @@ body.dark-mode .item-table th {
 
 /* ── Print Rules ───────────────────────────────────────────── */
 @media print {
+
   html,
   body {
     margin: 0 !important;

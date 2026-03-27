@@ -13,24 +13,24 @@ document.addEventListener("DOMContentLoaded", () => {
 // Data structures and Templates
 const templates = {
   receipt: `
-        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 10px 0 25px; text-decoration: underline; color: #000; font-family: sans-serif; letter-spacing: 2px;">
+        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 15px 0 35px; text-decoration: underline; color: #000; font-family: sans-serif; letter-spacing: 2px;">
             RECEIPT
         </div>
-        <div class="receipt-body" style="font-size: 18px; line-height: 2.8; padding: 20px 40px; text-align: left; margin: 0 20px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 25px;">
+        <div class="receipt-body" style="font-size: 18px; line-height: 3.2; padding: 30px 40px 60px; text-align: left; margin: 0 30px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 30px;">
                 <div>No. <span contenteditable="true" id="receipt-no" style="min-width: 120px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
                 <div>Date <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
             </div>
             
-            <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 20px;">
                 Received with thanks from <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
             </div>
             
-            <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 20px;">
                 the sum of rupees <span contenteditable="true" id="amount-words" style="min-width: 500px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
             </div>
             
-            <div style="margin-bottom: 15px;">
+            <div style="margin-bottom: 20px;">
                 being <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  by Cash / UPI / Cheque .
             
                 </div>
@@ -39,7 +39,7 @@ const templates = {
         </div>
 
         <!-- Amount + Signature -->
-        <div class="sign-row" style="margin-top: 40px; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div class="sign-row" style="margin-top: 55px; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
             <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end;">
                 Rs. <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px solid #000; margin-left: 10px; padding-left: 5px; outline: none; text-align: center;" id="receipt-amount" oninput="updateReceiptWords()"></span>
             </div>
@@ -526,7 +526,7 @@ function triggerImport() {
 
 function printDocument() {
   const originalTitle = document.title;
-  let filename = "ARK_Document";
+  let filename = "SFC";
 
   if (currentTemplate === "quotation") {
     const el = document.getElementById("quotation-no");
