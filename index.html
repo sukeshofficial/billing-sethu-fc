@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SETHU FOOTBALL CLUB</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/images/football_logo.ico">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="controls no-print">
         <h1>SETHU FOOTBALL CLUB</h1>
         <div class="nav-buttons">
-            <button onclick="switchTemplate('receipt')"> Receipt</button>
             <button class="print-btn" onclick="printDocument()"> Print / Save PDF</button>
             <button class="reset-btn" onclick="resetForm()"> Reset</button>
         </div>
@@ -24,7 +24,7 @@
             <table class="header-table" style="width: 100%; ">
                 <tr>
                     <td class="logo-cell" style="text-align: left; width: 15%;">
-                        <img src="tamilnadu_logo.jpg" alt="Tamil Nadu Logo" style="margin-top: 6px; max-height: 75px; border-radius: 50%; margin-left: 15px;">
+                        <img src="assets/images/tamilnadu_logo.jpg" alt="Tamil Nadu Logo" style="margin-top: 6px; max-height: 75px; border-radius: 50%; margin-left: 15px;">
                     </td>
                     <td class="company-details-cell" style="text-align: center; width: 70%;">
                         <div class="company-name" style="font-size: 18px; font-weight: bold; color: #ffffff; letter-spacing: 0.5px;">MADURAI DISTRICT FOOTBALL ASSOCIATION</div>
@@ -32,7 +32,7 @@
                         <div class="company-address" style="font-size: 12px; color: #ffffff; margin-top: 5px;">Registered under societies Act. No.12/1983. Affiliated with T.F.A CHENNAI</div>
                     </td>
                     <td class="logo-cell" style="text-align: right; width: 15%;">
-                        <img src="football_logo.jpg" alt="Football Logo" style="max-height: 75px; border-radius: 50%; margin-right: 15px; margin-top: 6px;">
+                        <img src="assets/images/football_logo.jpg" alt="Football Logo" style="max-height: 75px; border-radius: 50%; margin-right: 15px; margin-top: 6px;">
                     </td>
                 </tr>
             </table>
@@ -40,12 +40,12 @@
 
             <!-- Dynamic Template Content Goes Here -->
             <div id="template-content" class="template-section">
-                <!-- Quotation will be default -->
+                <!-- Receipt will be default -->
             </div>
         </div>
     </div>
 
 </body>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 
 </html>

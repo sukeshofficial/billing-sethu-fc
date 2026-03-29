@@ -1,4 +1,4 @@
-# ARK Packers & Movers Document Generator
+# SETHU FC Document Generator
 
 A browser-based document generator designed for logistics businesses to quickly create **Quotations, Invoices, Receipts, and Item Lists** with automatic calculations, financial-year numbering, and persistent data storage.
 
@@ -118,13 +118,6 @@ Features include:
 * Separate storage for each template
 * Data persistence after page refresh
 
-Saved keys include:
-
-ark_packers_data_quotation
-ark_packers_data_invoice
-ark_packers_data_receipt
-ark_packers_data_itemlist
-
 ---
 
 ## 7. Import and Export Backup
@@ -134,10 +127,6 @@ Users can create backups of their data.
 ### Export
 
 Exports all saved documents into a JSON backup file.
-
-Example file name:
-
-ARK_Data_Backup_01-03-2026.json
 
 ### Import
 
@@ -216,7 +205,7 @@ No external frameworks or libraries are required.
 Example project structure:
 
 ```
-ARK-Packers-Document-System
+SETHU-FC-Document-System
 │
 ├── index.html
 ├── styles.css

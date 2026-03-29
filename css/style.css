@@ -1,5 +1,5 @@
 /* ============================================================
-   ARK PACKERS & MOVERS — Professional Document Generator
+   SETHU FOOTBALL CLUB — Professional Document Generator
    Design: Deep Navy + Teal Premium Theme
    ============================================================ */
 
@@ -40,21 +40,6 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.15);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
   --shadow-lg: 0 10px 40px -3px rgb(6 182 212 / 0.15), 0 4px 16px -4px rgb(0 0 0 / 0.4);
-}
-
-body.dark-mode {
-  --bg-color: #020917;
-  --page-bg: #0a1628;
-  --text-color: #e0f7ff;
-  --muted: #94a3b8;
-  --border-color: #1e3a4a;
-  --border-strong: #94a3b8;
-  --brand-accent: rgba(14, 116, 144, 0.2);
-  --glass-bg: rgba(10, 24, 60, 0.85);
-  --glass-border: rgba(6, 182, 212, 0.2);
-  --ctrl-bg: #020917;
-  --ctrl-text: #e0f7ff;
-  --ctrl-border: #0e3a5c;
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
@@ -127,10 +112,6 @@ body {
   text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
 }
 
-body.dark-mode .controls h1 {
-  color: var(--text-color);
-}
-
 .controls h1 span {
   color: #06b6d4;
   text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
@@ -184,30 +165,6 @@ body.dark-mode .controls h1 {
   box-shadow: 0 4px 20px rgba(22, 163, 74, 0.3);
 }
 
-.nav-buttons .export-btn {
-  background: rgba(14, 116, 144, 0.2);
-  color: #a5f3fc;
-  border-color: rgba(14, 116, 144, 0.4);
-}
-
-.nav-buttons .export-btn:hover {
-  background: #0c4a6e;
-  color: #e0f2fe;
-  box-shadow: 0 4px 20px rgba(14, 116, 144, 0.3);
-}
-
-.nav-buttons .import-btn {
-  background: rgba(180, 83, 9, 0.15);
-  color: #fcd34d;
-  border-color: rgba(180, 83, 9, 0.4);
-}
-
-.nav-buttons .import-btn:hover {
-  background: #b45309;
-  color: #fffbeb;
-  box-shadow: 0 4px 20px rgba(180, 83, 9, 0.3);
-}
-
 .nav-buttons .reset-btn {
   background: rgba(220, 38, 38, 0.12);
   color: #fca5a5;
@@ -220,11 +177,11 @@ body.dark-mode .controls h1 {
   box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
 }
 
-/* ── A4 Page Setup ─────────────────────────────────────────── */
+/* ── A4 Print Page Setup ─────────────────────────────────────────── */
 @page {
-  size: 148mm 210mm;
+  /* Default to A4 landscape so the user can perfectly select "Pages per sheet: 2" */
+  size: A4 landscape;
   margin: 8mm;
-  
 }
 
 @media print {
@@ -235,9 +192,9 @@ body.dark-mode .controls h1 {
   }
 }
 
-/* Specific @page for landscape */
+/* Force A4 landscape even for landscape templates to ensure print dialog defaults correctly */
 @page landscape_page {
-  size: landscape;
+  size: A4 landscape;
   margin: 8mm;
 }
 
@@ -407,82 +364,6 @@ body.landscape-print {
   border: none;
 }
 
-body.dark-mode .doc-table th {
-  background: #0f2a5e;
-}
-
-/* ── Client Info Table (Quotation top) ─────────────────────── */
-.client-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 8px;
-  font-size: 12px;
-}
-
-.client-info-table td {
-  border: 1px solid var(--border-color);
-  padding: 4px 8px;
-  vertical-align: top;
-}
-
-.client-info-table .label-cell {
-  font-weight: 600;
-  color: var(--brand-dark);
-  background: var(--brand-accent);
-  width: 110px;
-  white-space: nowrap;
-  font-size: 11px;
-}
-
-body.dark-mode .client-info-table .label-cell {
-  background: var(--brand-accent);
-  color: #93c5fd;
-}
-
-/* ── Item / Charge Table (Quotation) ───────────────────────── */
-.charge-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 8px;
-  font-size: 12px;
-}
-
-.charge-table th {
-  background: var(--brand-dark);
-  color: #fff;
-  padding: 6px 10px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-
-.charge-table td {
-  border: 1px solid var(--border-color);
-  padding: 4px 8px;
-  vertical-align: middle;
-}
-
-.charge-table tr:nth-child(even) td {
-  background: var(--brand-accent);
-}
-
-.charge-table .total-row td {
-  background: var(--brand-dark) !important;
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.charge-table tr:hover td {
-  background: var(--brand-accent) !important;
-  transition: background 0.2s ease;
-}
-
-body.dark-mode .charge-table .words-row td {
-  color: #93c5fd;
-}
-
 /* ── No-border utility table ───────────────────────────────── */
 .no-border-table {
   width: 100%;
@@ -495,6 +376,11 @@ body.dark-mode .charge-table .words-row td {
 }
 
 /* ── Contenteditable fields ────────────────────────────────── */
+[contenteditable="true"],
+select {
+  font-weight: bold;
+}
+
 [contenteditable="true"] {
   outline: none;
   border-bottom: 1.5px dashed #94a3b8;
@@ -508,10 +394,6 @@ body.dark-mode .charge-table .words-row td {
   border-bottom: 1.5px solid var(--brand-gold-light);
   border-radius: 3px;
   transition: all 0.2s ease;
-}
-
-body.dark-mode [contenteditable="true"]:focus {
-  background-color: rgba(59, 130, 246, 0.12);
 }
 
 /* ── Receipt specific ──────────────────────────────────────── */
@@ -573,11 +455,6 @@ body.dark-mode [contenteditable="true"]:focus {
   box-shadow: var(--shadow-lg);
 }
 
-body.dark-mode .receipt-amount-pill {
-  color: var(--text-color);
-  background: var(--brand-accent);
-}
-
 .receipt-amount-pill .rupee-symbol {
   color: var(--brand-gold);
   font-size: 24px;
@@ -588,24 +465,6 @@ body.dark-mode .receipt-amount-pill {
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 40px;
-}
-
-/* ── Quotation opening paragraph ───────────────────────────── */
-.intro-text {
-  font-size: 12.5px;
-  line-height: 1.8;
-  margin: 12px 0 16px;
-  text-align: justify;
-  color: var(--text-color);
-  border-left: 4px solid var(--brand-gold);
-  background: var(--brand-accent);
-  border-radius: 4px;
-  padding: 12px 18px;
-  box-shadow: var(--shadow-sm);
-}
-
-body.dark-mode .intro-text {
-  color: var(--text-color);
 }
 
 /* ── Sign boxes ────────────────────────────────────────────── */
@@ -650,146 +509,6 @@ body.dark-mode .intro-text {
   font-size: 11px;
 }
 
-body.dark-mode .terms-conditions strong {
-  color: #93c5fd;
-}
-
-/* ── Item List / Declaration ───────────────────────────────── */
-.item-table th {
-  background: var(--brand-dark);
-  color: #fff;
-  text-align: center;
-  font-size: 11px;
-  padding: 6px 4px;
-  letter-spacing: 0.5px;
-}
-
-body.dark-mode .item-table th {
-  background: var(--brand-dark);
-}
-
-.item-table td {
-  font-size: 10px;
-  padding: 2px 3px;
-}
-
-.consignor-box {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.consignor-box th {
-  background: var(--brand-dark);
-  color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 7px 10px;
-  width: 50%;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.consignor-box td {
-  border: 1px solid var(--border-color);
-  height: 14px;
-  vertical-align: top;
-}
-
-.consignor-box td .consignor-name,
-.consignor-box td .consignee-name,
-.consignor-box td div[contenteditable="true"] {
-  border: none;
-  border-bottom: 1px dashed var(--border-color);
-  min-height: 70px !important;
-  height: auto !important;
-  overflow: auto;
-  padding: 4px 6px;
-}
-
-.declaration-text {
-  line-height: 1.7;
-  margin-bottom: 12px;
-  font-size: 13px;
-  color: var(--text-color);
-}
-
-.doc-no-line {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--brand-dark);
-  margin-bottom: 10px;
-}
-
-/* ── Item List sign/footer strip ───────────────────────────── */
-.itemlist-footer {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--border-color);
-  border-top: none;
-}
-
-.itemlist-footer td {
-  padding: 10px 12px;
-  vertical-align: top;
-  border-right: 1px solid var(--border-color);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.itemlist-footer td:last-child {
-  border-right: none;
-}
-
-/* ── Row-count control (no-print) ──────────────────────────── */
-.row-controls {
-  text-align: center;
-  margin: 8px 0;
-  padding: 8px;
-  background: var(--brand-accent);
-  border-radius: 6px;
-}
-
-.row-controls button {
-  padding: 4px 14px;
-  margin: 0 4px;
-  border: 1px solid var(--brand-mid);
-  background: #fff;
-  color: var(--brand-dark);
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: "Inter", sans-serif;
-}
-
-.row-controls button:hover {
-  background: var(--brand-mid);
-  color: #fff;
-}
-
-/* ── Tax Invoice specific ──────────────────────────────────── */
-.invoice-top-table,
-.invoice-particulars-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.invoice-top-table td,
-.invoice-particulars-table td {
-  border: 1px solid var(--border-color);
-}
-
-.invoice-top-table [contenteditable="true"],
-.invoice-particulars-table [contenteditable="true"] {
-  border-bottom: none;
-  /* Inside grid we don't need dashed lines usually, or very subtle ones */
-}
-
-.invoice-top-table [contenteditable="true"]:focus,
-.invoice-particulars-table [contenteditable="true"]:focus {
-  background-color: rgba(59, 130, 246, 0.05);
-}
-
 /* ── Print Rules ───────────────────────────────────────────── */
 @media print {
 
@@ -825,11 +544,6 @@ body.dark-mode .item-table th {
     min-height: 0 !important;
   }
 
-  body.dark-mode .page-container,
-  body.dark-mode .header-table {
-    background: #fff !important;
-  }
-
   .header-table {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -862,35 +576,11 @@ body.dark-mode .item-table th {
     outline: none !important;
   }
 
-  .doc-table th,
-  .charge-table th,
-  .item-table th,
-  .consignor-box th {
+  .doc-table th {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     background: #0f2a5e !important;
     color: #fff !important;
-  }
-
-  .charge-table .total-row td {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-    background: #0f2a5e !important;
-    color: #fff !important;
-  }
-
-  .charge-table tr:nth-child(even) td {
-    background: #f8faff !important;
-  }
-
-  .charge-table .words-row td {
-    background: #e8f0fe !important;
-    color: #0f2a5e !important;
-  }
-
-  .intro-text {
-    background: #e8f0fe !important;
-    border-left-color: #c9a227 !important;
   }
 
   .receipt-amount-pill {
@@ -901,24 +591,23 @@ body.dark-mode .item-table th {
 
 /* ── Custom Amount Line Layout ────────────────────────────── */
 .amount-line {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 15px;
-    margin-bottom: 20px;
-    align-items: baseline;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 15px;
+  margin-bottom: 20px;
+  align-items: baseline;
 }
 
 .amount-line .label {
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 18px;
+  white-space: nowrap;
+  font-size: 18px;
 }
 
 .amount-line .amount {
-    border-bottom: 2px solid black;
-    word-break: break-word;
-    display: inline-block;
-    min-height: 25px;
-    font-size: 18px;
-    line-height: 1.6;
+  border-bottom: 2px solid black;
+  word-break: break-word;
+  display: inline-block;
+  min-height: 25px;
+  font-size: 18px;
+  line-height: 1.6;
 }
