@@ -13,25 +13,36 @@ document.addEventListener("DOMContentLoaded", () => {
 // Data structures and Templates
 const templates = {
   receipt: `
+        <div style="display: flex; justify-content: space-between; font-weight: bold; padding: 10px 40px; font-size: 18px;">
+            <div>No. <span contenteditable="true" id="receipt-no" style="min-width: 120px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
+            <div>Date <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
+        </div>
+        <div style="border-bottom: 2px solid black; margin-bottom: 15px;"></div>
+        
         <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 15px 0 35px; text-decoration: underline; color: #000; font-family: sans-serif; letter-spacing: 2px;">
             RECEIPT
         </div>
-        <div class="receipt-body" style="font-size: 18px; line-height: 3.2; padding: 30px 40px 60px; text-align: left; margin: 0 30px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 30px;">
-                <div>No. <span contenteditable="true" id="receipt-no" style="min-width: 120px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
-                <div>Date <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span></div>
-            </div>
-            
+        <div class="receipt-body" style="font-size: 18px; line-height: 3.2; padding: 0 40px 25px; text-align: left; margin: 0 30px;">
             <div style="margin-bottom: 20px;">
                 Received with thanks from <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
             </div>
+            <div style="margin-bottom: 20px; display: flex; align-items: baseline;">
+                (Football club / Soccer club / Academy) <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 330px; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; margin-left: 10px;">Payment Category</span>
+                <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: 5px; font-size: 15px; text-align: center;">
+                    <option value="" disabled selected>▼ Pick</option>
+                    <option value="Yearly Subscription">( Yearly Subscription )</option>
+                    <option value="Players registration">( Players registration )</option>
+                    <option value="League fee">( League fee )</option>
+                </select>
+            </div>
             
-            <div style="margin-bottom: 20px;">
-                the sum of rupees <span contenteditable="true" id="amount-words" style="min-width: 500px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+            <div class="amount-line">
+                <span class="label">the sum of rupees</span>
+                <span contenteditable="true" id="amount-words" class="amount"></span>
             </div>
             
             <div style="margin-bottom: 20px;">
-                being <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  by Cash / UPI / Cheque .
+                being <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  by Cash / UPI / Cheque / Bank transfer.
             
                 </div>
             
@@ -39,13 +50,16 @@ const templates = {
         </div>
 
         <!-- Amount + Signature -->
-        <div class="sign-row" style="margin-top: 55px; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
-            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end;">
+        <div class="sign-row" style="margin-top: 25px; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end; margin-bottom: 25px;">
                 Rs. <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px solid #000; margin-left: 10px; padding-left: 5px; outline: none; text-align: center;" id="receipt-amount" oninput="updateReceiptWords()"></span>
             </div>
-            <div style="text-align: right; font-size: 16px; font-weight: bold; line-height: 1.8;">
-                <div>Hony. Treasurer</div>
-                <div>Hony. Secretary</div>
+            <div style="display: flex; align-items: center; gap: 25px;">
+                <img src="football_logo.jpg" alt="Seal" style="max-height: 65px; border-radius: 50%; filter: hue-rotate(120deg);">
+                <div style="text-align: right; font-size: 16px; font-weight: bold; line-height: 1.8;">
+                    <div>Hony. Treasurer</div>
+                    <div>Hony. Secretary</div>
+                </div>
             </div>
         </div>
     `,
@@ -547,10 +561,29 @@ function printDocument() {
   filename = filename.replace(/[/\\?%*:|"<>]/g, "-");
 
   document.title = filename;
-  window.print();
 
-  // Restore title after a brief delay so the print dialog captures it
+  // Clone the receipt content for double printing
+  const container = document.getElementById("document-container");
+  const clone = container.cloneNode(true);
+  clone.id = "document-container-clone"; // Assign a unique ID to the clone
+  
+  // Apply a page break to the original container (using multiple properties for reliability)
+  container.style.breakAfter = "page";
+  container.style.pageBreakAfter = "always";
+  
+  // Insert the clone right after the original container for consistent layout
+  container.after(clone);
+
+  // Small delay to ensure browser handles DOM changes before print preview
   setTimeout(() => {
-    document.title = originalTitle;
-  }, 1000);
+    window.print();
+    
+    // Remove the clone and the page break styles after a longer delay for safety
+    setTimeout(() => {
+      document.title = originalTitle;
+      container.style.breakAfter = "";
+      container.style.pageBreakAfter = "";
+      if (clone.parentNode) clone.parentNode.removeChild(clone);
+    }, 2000);
+  }, 100);
 }

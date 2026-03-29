@@ -3,7 +3,8 @@
    Design: Deep Navy + Teal Premium Theme
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&display=swap");
 
 /* ── CSS Variables ─────────────────────────────────────────── */
 :root {
@@ -86,7 +87,8 @@ body {
   background-size: 400% 400%;
   animation: bgShift 18s ease infinite;
   color: var(--text-color);
-  font-family: "Inter", Arial, sans-serif;
+  /* font-family: "Inter", Arial, sans-serif; */
+  font-family: 'Space Mono', monospace;
   font-size: 13px;
   line-height: 1.5;
   padding: 20px;
@@ -146,7 +148,8 @@ body.dark-mode .controls h1 {
   border: 1px solid rgba(6, 182, 212, 0.3);
   border-radius: 8px;
   cursor: pointer;
-  font-family: "Inter", sans-serif;
+  /* font-family: "Inter", sans-serif; */
+  font-family: 'Space Mono', monospace;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -221,6 +224,7 @@ body.dark-mode .controls h1 {
 @page {
   size: 148mm 210mm;
   margin: 8mm;
+  
 }
 
 @media print {
@@ -305,7 +309,8 @@ body.landscape-print {
 }
 
 .company-name {
-  font-family: "Playfair Display", serif;
+  /* font-family: "Playfair Display", serif; */
+  font-family: 'Space Mono', monospace;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -892,4 +897,28 @@ body.dark-mode .item-table th {
     background: #e8f0fe !important;
     border-color: #1c509b !important;
   }
+}
+
+/* ── Custom Amount Line Layout ────────────────────────────── */
+.amount-line {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 15px;
+    margin-bottom: 20px;
+    align-items: baseline;
+}
+
+.amount-line .label {
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.amount-line .amount {
+    border-bottom: 2px solid black;
+    word-break: break-word;
+    display: inline-block;
+    min-height: 25px;
+    font-size: 18px;
+    line-height: 1.6;
 }
