@@ -34,28 +34,37 @@ const templates = {
             </div>
             
             <!-- Payment Category Dropdown & Text -->
-            <div style="margin-bottom: 20px; display: flex; align-items: baseline; gap: 20px;">
-                
-                <div style="display: flex; align-items: baseline;">
-                    <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 180px; display: inline-block; border-bottom: 1px dashed #ccc; text-align: left; outline: none;">Football club</span>
-                    <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: 5px; font-size: 15px; font-family: 'Space Mono', monospace;">
-                        <option value="" disabled selected>Pick Club</option>
-                        <option value="Football club">Football club</option>
-                        <option value="Soccer club">Soccer club</option>
-                        <option value="Academy">Academy</option>
-                    </select>
+            <div style="margin-bottom: 20px; display: flex; align-items: baseline; justify-content: space-between; width: 100%;">
+                <!-- Left: Payment Category + Club Name -->
+                <div style="display: flex; align-items: baseline; gap: 10px; flex: 1;">
+                    <span style="white-space: nowrap;">Payment category</span>
+                    <div style="display: flex; align-items: baseline; flex: 1;">
+                        <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 150px; flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
+                        <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: 5px; font-size: 15px; font-family: 'Space Mono', monospace;">
+                            <option value="" disabled selected>Select Club</option>
+                            <option value="Football club">Football club</option>
+                            <option value="Soccer club">Soccer club</option>
+                            <option value="Academy">Academy</option>
+                        </select>
+                    </div>
                 </div>
 
-                <span style="min-width: 180px, margin-left: auto, margin-right: auto" >towards</span>
+                <!-- Center: "towards" -->
+                <div style="flex: 0 0 auto; text-align: center; margin: 0px 0px 0px 25px;">
+                    <span>towards</span>
+                </div>
 
-                <div style="display: flex; align-items: baseline; flex: 1;">
-                    <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: left; outline: none; padding-left: 4ch;">Payment Category</span>
-                    <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: auto; font-size: 15px; font-family: 'Space Mono', monospace;">
-                        <option value="" disabled selected>Payment Category</option>
-                        <option value="Yearly Subscription">Yearly Subscription</option>
-                        <option value="Players registration">Players registration</option>
-                        <option value="League fee">League fee</option>
-                    </select>
+                <!-- Right: Purpose/Subscription -->
+                <div style="display: flex; align-items: baseline; flex: 1; justify-content: flex-end;">
+                    <div style="display: flex; align-items: baseline; width: 100%;">
+                        <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
+                        <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; font-size: 15px; font-family: 'Space Mono', monospace;">
+                            <option value="" disabled selected>Select One</option>
+                            <option value="Yearly Subscription">Yearly Subscription</option>
+                            <option value="Players registration">Players registration</option>
+                            <option value="League fee">League fee</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             
