@@ -17,10 +17,10 @@ const templates = {
             </div>
         </div>
         
-        <div style="border-bottom: 2px solid black; margin-bottom: 15px;"></div>
+        <div style="border-bottom: 2px solid black; margin-bottom: 25px;"></div>
         
         <!-- ==================== RECEIPT TITLE ==================== -->
-        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 15px 0 35px; text-decoration: underline; color: #000; font-family: 'Space Mono', monospace; letter-spacing: 2px;">
+        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 20px 0 35px; text-decoration: underline; color: #000; font-family: 'Space Mono', monospace; letter-spacing: 2px;">
             RECEIPT
         </div>
         
@@ -28,16 +28,22 @@ const templates = {
         <div class="receipt-body" style="font-size: 18px; line-height: 3.2; padding: 0 30px 15px; text-align: left; margin: 0 15px;">
             
             <!-- Received From -->
-            <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 30px;">
                 Received with thanks from 
-                <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+                <span contenteditable="true" style="min-width: 400px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+                <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 150px; flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
+                        <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: 5px; font-size: 15px; font-family: 'Space Mono', monospace;">
+                            <option value="" disabled selected>Select Club</option>
+                            <option value="Football club">Football club</option>
+                            <option value="Soccer club">Soccer club</option>
+                            <option value="Academy">Academy</option>
+                        </select>
             </div>
             
-            <!-- Payment Category Dropdown & Text -->
-            <div style="margin-bottom: 20px; display: flex; align-items: baseline; justify-content: space-between; width: 100%;">
-                <!-- Left: Payment Category + Club Name -->
+            <!-- Payment Category Dropdown & Text 
+            <div style="margin-bottom: 25px; display: flex; align-items: baseline; justify-content: space-between; width: 100%;">
+                
                 <div style="display: flex; align-items: baseline; gap: 10px; flex: 1;">
-                    <span style="white-space: nowrap;">Payment category</span>
                     <div style="display: flex; align-items: baseline; flex: 1;">
                         <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 150px; flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
                         <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; margin-left: 5px; font-size: 15px; font-family: 'Space Mono', monospace;">
@@ -49,12 +55,11 @@ const templates = {
                     </div>
                 </div>
 
-                <!-- Center: "towards" -->
+                
                 <div style="flex: 0 0 auto; text-align: center; margin: 0px 0px 0px 25px;">
                     <span>towards</span>
                 </div>
 
-                <!-- Right: Purpose/Subscription -->
                 <div style="display: flex; align-items: baseline; flex: 1; justify-content: flex-end;">
                     <div style="display: flex; align-items: baseline; width: 100%;">
                         <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
@@ -66,7 +71,7 @@ const templates = {
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <!-- Auto-Calculated Amount in Words -->
             <div class="amount-line">
@@ -75,9 +80,17 @@ const templates = {
             </div>
             
             <!-- Payment Mode (Cash/UPI/Bank) -->
-            <div style="margin-bottom: 20px;">
+            <div style="margin-bottom: 30px;">
                 being 
-                <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  
+                <!-- <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  -->
+                                        <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
+                        <select class="no-print" onchange="this.previousElementSibling.innerText = this.value; this.value = ''; if(typeof saveData === 'function') saveData();" style="border: none; outline: none; background: transparent; cursor: pointer; font-size: 15px; font-family: 'Space Mono', monospace;">
+                            <option value="" disabled selected>Select One</option>
+                            <option value="Yearly Subscription">Yearly Subscription</option>
+                            <option value="Players registration">Players registration</option>
+                            <option value="League fee">League fee</option>
+                        </select>
+
                 by Cash / UPI / Cheque / Bank transfer.
             </div>
             
@@ -87,13 +100,13 @@ const templates = {
         <div class="sign-row" style="margin-top: 25px; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: flex-end;">
             
             <!-- Left: Amount in Numbers -->
-            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end; margin-bottom: 25px;">
+            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end; margin-bottom: 35px;">
                 Rs. 
                 <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px solid #000; margin-left: 10px; padding-left: 5px; outline: none; text-align: center;" id="receipt-amount" oninput="updateReceiptWords()"></span>
             </div>
             
             <!-- Center: Football Logo Seal -->
-            <div style="display: flex; justify-content: center; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
                 <img src="assets/images/football_logo.jpg" alt="Seal" style="max-height: 65px; border-radius: 50%; filter: hue-rotate(120deg);">
             </div>
             
