@@ -13,22 +13,23 @@ const templates = {
             </div>
             <div>
                 Date: 
-                <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
+                <span contenteditable="true" id="receipt-date-display" class="date-field" style="min-width: 180px; display: inline-block; border-bottom: 1px dotted #000; text-align: center; cursor: pointer;"></span>
+                <input type="date" id="receipt-date-picker" class="no-print" style="position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0;">
             </div>
         </div>
         
-        <div style="border-bottom: 2px solid black; margin-bottom: 25px;"></div>
+        <div style="border-bottom: 2px solid black; margin-bottom: 35px;"></div>
         
         <!-- ==================== RECEIPT TITLE ==================== -->
-        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 20px 0 35px; text-decoration: underline; color: #000; font-family: 'Space Mono', monospace; letter-spacing: 2px;">
+        <div style="text-align: center; font-size: 22px; font-weight: bold; margin: 30px 0 45px; text-decoration: underline; color: #000; font-family: 'Space Mono', monospace; letter-spacing: 2px;">
             RECEIPT
         </div>
         
         <!-- ==================== RECEIPT BODY ==================== -->
-        <div class="receipt-body" style="font-size: 18px; line-height: 3.2; padding: 0 30px 15px; text-align: left; margin: 0 15px;">
+        <div class="receipt-body" style="font-size: 18px; line-height: 3.8; padding: 0 30px 15px; text-align: left; margin: 0 15px;">
             
             <!-- Received From -->
-            <div style="margin-bottom: 30px;">
+            <div style="margin-bottom: 40px;">
                 Received with thanks from 
                 <span contenteditable="true" style="min-width: 400px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>
                 <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="min-width: 150px; flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
@@ -80,7 +81,7 @@ const templates = {
             </div>
             
             <!-- Payment Mode (Cash/UPI/Bank) -->
-            <div style="margin-bottom: 30px;">
+            <div style="margin-bottom: 40px;">
                 being 
                 <!-- <span contenteditable="true" style="min-width: 450px; display: inline-block; border-bottom: 1px dotted #000; text-align: center;"></span>  -->
                                         <span contenteditable="true" oninput="if(typeof saveData === 'function') saveData();" style="flex: 1; display: inline-block; border-bottom: 1px dashed #ccc; text-align: center; outline: none; font-weight: bold;"></span>
@@ -100,13 +101,13 @@ const templates = {
         <div class="sign-row" style="margin-top: 25px; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: flex-end;">
             
             <!-- Left: Amount in Numbers -->
-            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end; margin-bottom: 35px;">
+            <div style="font-weight: bold; font-size: 20px; display: flex; align-items: flex-end; margin-bottom: 45px;">
                 Rs. 
                 <span contenteditable="true" style="min-width: 180px; display: inline-block; border-bottom: 1px solid #000; margin-left: 10px; padding-left: 5px; outline: none; text-align: center;" id="receipt-amount" oninput="updateReceiptWords()"></span>
             </div>
             
             <!-- Center: Football Logo Seal -->
-            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
                 <img src="assets/images/football_logo.jpg" alt="Seal" style="max-height: 65px; border-radius: 50%; filter: hue-rotate(120deg);">
             </div>
             
@@ -218,6 +219,37 @@ document.addEventListener(
 );
 
 /**
+ * Date Picker Logic
+ * Handles clicking the date field to open the calendar and updating the display.
+ */
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("date-field")) {
+    const picker = e.target.nextElementSibling;
+    if (picker && picker.tagName === "INPUT" && picker.type === "date") {
+      try {
+        picker.showPicker();
+      } catch (err) {
+        picker.click();
+      }
+    }
+  }
+});
+
+document.addEventListener("change", (e) => {
+  if (e.target.id === "receipt-date-picker") {
+    const display = document.getElementById("receipt-date-display");
+    if (display) {
+      const dateVal = e.target.value;
+      if (dateVal) {
+        const [year, month, day] = dateVal.split("-");
+        display.innerText = `${day}/${month}/${year}`;
+        saveData();
+      }
+    }
+  }
+});
+
+/**
  * Reset Form Data
  * Prompts user confirmation, deletes LocalStorage key, and resets the template.
  */
@@ -229,8 +261,10 @@ function resetForm() {
       "?",
     )
   ) {
+    // Clear the specific template "cache" from local storage
     localStorage.removeItem("sethu_fc_data_" + currentTemplate);
-    switchTemplate(currentTemplate);
+    // Hard refresh the page to completely reset state
+    window.location.reload();
   }
 }
 
@@ -247,12 +281,21 @@ function applyTodayDate() {
     "/" +
     today.getFullYear();
 
+  const yyyymmdd = today.getFullYear() + "-" +
+    (today.getMonth() + 1).toString().padStart(2, "0") + "-" +
+    today.getDate().toString().padStart(2, "0");
+
   const dateFields = document.querySelectorAll(".date-field");
   dateFields.forEach((field) => {
     if (!field.innerText.trim()) {
       field.innerText = formatted;
     }
   });
+
+  const picker = document.getElementById("receipt-date-picker");
+  if (picker && !picker.value) {
+    picker.value = yyyymmdd;
+  }
 }
 
 /**
